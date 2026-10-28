@@ -12,16 +12,13 @@ const menus = [
     name: 'Browse',
     path: '/browse',
     children: [
-      {
-        name: 'Event List',
-        path: '/browse/events',
-        children: [{ name: 'Event Detail (Sample)', path: '/browse/events/1' }],
-      },
+      { name: 'Event List', path: '/browse/events' },
       { name: 'Category', path: '/browse/category' },
-    ],
+      { name: 'Your Events', path: '/browse/your-events' }
+    ]
   },
   { name: 'Contact', path: '/contact' },
-  { name: 'Organizer Dashboard', path: '/dashboard' },
+  { name: 'Organizer Dashboard', path: '/dashboard' }
 ]
 
 const handleScroll = () => {
@@ -60,14 +57,14 @@ onUnmounted(() => {
         </svg>
         <span class="logo-text">Gatherly</span>
       </router-link>
+
       <ul class="nav-menu">
         <li class="nav-item" v-for="menu in menus" :key="menu.name">
           <router-link
             :to="menu.path"
             class="nav-link"
             :class="{
-              active:
-                route.path === menu.path || (menu.path !== '/' && route.path.startsWith(menu.path)),
+              active: route.path === menu.path || (menu.path !== '/' && route.path.startsWith(menu.path))
             }"
           >
             {{ menu.name }}
@@ -86,6 +83,7 @@ onUnmounted(() => {
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </router-link>
+
           <!-- First Level Dropdown -->
           <ul v-if="menu.children" class="dropdown-menu">
             <li v-for="child in menu.children" :key="child.name" class="dropdown-item">
@@ -106,6 +104,7 @@ onUnmounted(() => {
                   <polyline points="9 18 15 12 9 6"></polyline>
                 </svg>
               </router-link>
+
               <!-- Second Level Dropdown (Submenu) -->
               <ul v-if="child.children" class="submenu">
                 <li v-for="subchild in child.children" :key="subchild.name" class="submenu-item">
@@ -118,6 +117,7 @@ onUnmounted(() => {
           </ul>
         </li>
       </ul>
+
       <div class="nav-right">
         <div class="lang-selector">
           <svg
@@ -151,6 +151,7 @@ onUnmounted(() => {
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
         </div>
+
         <button class="hamburger-btn">
           <svg
             width="24"
@@ -244,8 +245,8 @@ onUnmounted(() => {
 .nav-item {
   position: relative;
   display: flex;
-  align-items: center;
   height: 100%;
+  align-items: center;
   padding: 1rem 0; /* Memberi ruang hover */
 }
 
@@ -286,16 +287,13 @@ onUnmounted(() => {
   transform: rotate(180deg);
 }
 
-/* ==================================
-   DROPDOWN & SUBMENU STYLES
-   Inspired by user reference image
-   ================================== */
+/* DROPDOWN & SUBMENU STYLES */
 .dropdown-menu {
   display: none; /* diubah jadi block saat hover */
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #d8d8d8; /* warna abu seperti referensi */
+  background-color: #d8d8d8;
   min-width: 200px;
   list-style: none;
   padding: 0;
@@ -304,7 +302,6 @@ onUnmounted(() => {
   border-radius: 4px;
 }
 
-/* Tampilkan dropdown level 1 saat nav-item di-hover */
 .nav-item:hover .dropdown-menu {
   display: block;
   animation: fadeIn 0.2s ease-out;
@@ -320,20 +317,17 @@ onUnmounted(() => {
   align-items: center;
   padding: 12px 20px;
   text-decoration: none;
-  color: #333; /* text gelap */
   font-size: 0.95rem;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
+  color: #333;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .dropdown-link:hover {
-  background-color: #c4c4c4; /* efek hover lebih gelap sedikit */
+  background-color: #c4c4c4;
   color: #000;
 }
 
-/* Hilangkan border bawah pada item terakhir */
 .dropdown-item:last-child .dropdown-link {
   border-bottom: none;
 }
@@ -342,8 +336,8 @@ onUnmounted(() => {
 .submenu {
   display: none;
   position: absolute;
-  top: 0;
   left: 100%;
+  top: 0;
   background-color: #d8d8d8;
   min-width: 220px;
   list-style: none;
@@ -353,7 +347,6 @@ onUnmounted(() => {
   border-radius: 4px;
 }
 
-/* Tampilkan submenu level 2 saat dropdown-item di-hover */
 .dropdown-item:hover .submenu {
   display: block;
   animation: fadeIn 0.2s ease-out;
@@ -370,9 +363,7 @@ onUnmounted(() => {
   }
 }
 
-/* ==================================
-   RIGHT SECTION
-   ================================== */
+/* RIGHT SECTION */
 .nav-right {
   display: flex;
   align-items: center;
