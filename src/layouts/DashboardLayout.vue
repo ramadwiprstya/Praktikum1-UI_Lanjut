@@ -1,79 +1,53 @@
-<script setup lang="ts">
-import { RouterView, RouterLink } from 'vue-router';
+<script setup>
+import { RouterView, RouterLink } from 'vue-router'
 </script>
 
 <template>
-  <!-- RAIL & PANE SYSTEM
-       Kerangka khusus untuk kebutuhan produktivitas/pengelolaan aplikasi. -->
-
   <div class="dashboard-layout">
-
-    <!-- RAIL: Navigasi samping yang posisinya terkunci (fixed) -->
     <aside class="dashboard-rail">
-
       <div class="rail-brand">
-        <router-link to="/">
-          Gatherly Organizer
-        </router-link>
+        <RouterLink to="/">Gatherly Organizer</RouterLink>
       </div>
 
       <nav class="rail-nav">
-        <router-link
+        <RouterLink
           to="/dashboard"
-          class="rail-link active"
+          class="rail-link"
+          exact-active-class="active"
         >
-          Overview
-        </router-link>
+          Dashboard
+        </RouterLink>
 
-        <a href="#" class="rail-link">
-          My Events
-        </a>
-
-        <a href="#" class="rail-link">
-          Attendees
-        </a>
-
-        <a href="#" class="rail-link">
-          QR Check-in
-        </a>
+        <RouterLink
+          to="/dashboard/events"
+          class="rail-link"
+          active-class="active"
+        >
+          Event Management
+        </RouterLink>
       </nav>
 
       <div class="rail-footer">
-        <router-link to="/" class="rail-link">
-          &larr; Back to Public
-        </router-link>
+        <RouterLink to="/" class="rail-link">
+          ← Back to Public
+        </RouterLink>
       </div>
-
     </aside>
 
-    <!-- PANE: Area utama dinamis tempat konten berubah
-         dan bisa digulir secara mandiri -->
     <main class="dashboard-pane">
-
       <header class="pane-header">
         <h1>Dashboard</h1>
-
-        <div class="user-profile">
-          Admin
-        </div>
+        <div class="user-profile">Admin</div>
       </header>
 
       <div class="pane-content">
         <RouterView />
       </div>
-
     </main>
-
   </div>
 </template>
 
 <style scoped>
-/*
-  Full-screen app layout (khas dashboard).
-  Tinggi dibatasi 100vh agar bagian rail tidak ikut terguyur ke atas
-  saat pane di-scroll.
-*/
-
 .dashboard-layout {
   display: flex;
   height: 100vh;
@@ -81,11 +55,10 @@ import { RouterView, RouterLink } from 'vue-router';
   background-color: var(--bg-gray);
 }
 
-/* RAIL STYLES */
 .dashboard-rail {
   width: 260px;
+  flex-shrink: 0;
   background-color: #1c1948;
-  /* Kontras gelap membedakan area nav dan konten */
   color: white;
   display: flex;
   flex-direction: column;
@@ -104,15 +77,15 @@ import { RouterView, RouterLink } from 'vue-router';
 }
 
 .rail-nav {
-  flex: 1;
   padding: var(--space-6) 0;
   display: flex;
   flex-direction: column;
 }
 
 .rail-link {
+  display: block;
   padding: var(--space-3) var(--space-6);
-  color: #aaa0b0;
+  color: #cbd5e1;
   text-decoration: none;
   font-weight: 500;
   transition: background 0.2s, color 0.2s;
@@ -120,24 +93,25 @@ import { RouterView, RouterLink } from 'vue-router';
 
 .rail-link:hover,
 .rail-link.active {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(102, 68, 255, 0.2);
   color: white;
+}
+
+.rail-link.active {
   border-left: 4px solid var(--primary);
 }
 
 .rail-footer {
-  padding: var(--space-6);
+  margin-top: auto;
+  padding: var(--space-6) 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
-
-/* PANE STYLES */
 
 .dashboard-pane {
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  /* Scroll khusus untuk area ini saja */
 }
 
 .pane-header {
@@ -154,7 +128,21 @@ import { RouterView, RouterLink } from 'vue-router';
   margin: 0;
 }
 
+.user-profile {
+  font-weight: 600;
+}
+
 .pane-content {
   padding: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .dashboard-rail {
+    width: 200px;
+  }
+
+  .pane-content {
+    padding: var(--space-4);
+  }
 }
 </style>
