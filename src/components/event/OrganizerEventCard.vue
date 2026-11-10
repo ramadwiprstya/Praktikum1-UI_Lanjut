@@ -25,9 +25,7 @@ defineEmits(['view-detail', 'complete', 'delete']);
     </div>
 
     <h3 :class="['event-title', { 'text-strike': isCompleted }]">{{ event.title }}</h3>
-    <p class="event-meta">
-      {{ event.date }} &bull; {{ event.loc }}
-    </p>
+    <p class="event-meta">{{ event.date }} &bull; {{ event.loc }}</p>
     <p class="event-desc">{{ event.desc }}</p>
 
     <div v-if="isCompleted" class="completed-notice">
@@ -40,7 +38,7 @@ defineEmits(['view-detail', 'complete', 'delete']);
           View Details
         </button>
         <button class="btn-action btn-complete" @click="$emit('complete', event)">
-          ✔ Complete Event
+          Complete Event
         </button>
         <button class="btn-action btn-delete" @click="$emit('delete', event)">
           Delete
@@ -105,8 +103,8 @@ defineEmits(['view-detail', 'complete', 'delete']);
 }
 
 .text-strike {
-  color: #8a8d93;
   text-decoration: line-through;
+  color: #8a8d93;
 }
 
 .card-completed {
@@ -177,7 +175,7 @@ defineEmits(['view-detail', 'complete', 'delete']);
 .btn-delete {
   color: #e63946;
   border-color: rgba(230, 57, 70, 0.3);
-  flex: 0 auto;
+  flex: 0 0 auto;
 }
 
 .btn-delete:hover {
